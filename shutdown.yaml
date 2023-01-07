@@ -1,0 +1,9 @@
+- name: Make servers shutdown peacefully
+  hosts: local
+  gather_facts: true
+  tasks:
+    - name: Start Shutdown
+      community.general.shutdown:
+        delay: 69
+        msg: "ACHTUNG! This server is going to pull the power plug off himself. \
+              Make sure u have saved ur work.\nYou have 69 (nice) seconds \n"

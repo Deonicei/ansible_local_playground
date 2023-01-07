@@ -1,2 +1,2 @@
 [local]
-x270 ansible_host=192.168.0.106 ansible_user=ansible ansible_ssh_private_key_file=$HOME/.ssh/id_rsa_ansible
+x270 ansible_host=192.168.0.106 mac=c8:5b:76:d9:db:fa ansible_user=ansible ansible_ssh_private_key_file=$HOME/.ssh/id_rsa_ansible
