@@ -1,0 +1,49 @@
+- name: Install necessary shit
+  hosts: local
+  tasks:
+    - name: Ping
+      ansible.builtin.ping:
+    - name: Print message
+      ansible.builtin.debug:
+        msg: Starting installing necessary shiet
+    - name: Install needed packages using dnf
+      ansible.builtin.dnf:
+        name:
+          - httpd
+          - micro
+          - zsh
+        state: present
+    - name: Install oh-my-zsh
+      ansible.builtin.include_role:
+        name: gantsign.oh-my-zsh
+      vars:
+        users:
+          - username: root
+            oh_my_zsh:
+              theme: fino
+              plugins:
+                - git
+                - colored-man-pages
+                - zsh-syntax-highlighting
+                - zsh-autosuggestions
+                - docker
+    - name: Install necessary zsh plugins (zsh-autosuggest)
+      become: true
+      become_user: root
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        update: false
+        version: master
+    - name: Install necessary zsh plugins (syntax-highlight)
+      become: true
+      become_user: root
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        update: false
+        version: master
+    - name: Install virtualization tools
+      ansible.builtin.dnf:
+        name: "@virtualization"
+        state: present
